@@ -92,13 +92,6 @@
         android:id="@+id/bugTestButtonLayout">
 
         <Button
-            android:text="Load"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/loadButton"
-            android:layout_weight="1" />
-
-        <Button
             android:text="Save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
