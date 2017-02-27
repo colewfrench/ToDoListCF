@@ -58,6 +58,7 @@ public abstract class ToDoView extends LinearLayout {
     {
         CheckBox newCheckBox = new CheckBox(context);
         newCheckBox.setText("");
+        newCheckBox.setChecked(false);
         LinearLayout.LayoutParams checkBoxParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         checkBoxParams.setMargins(CHECK_BOX_LEFT_MARGIN, 0, 0, 0);
         newCheckBox.setLayoutParams(checkBoxParams);
@@ -105,8 +106,8 @@ public abstract class ToDoView extends LinearLayout {
         return (String)entryTextView.getText();
     }
 
-    public boolean isChecked()
+    public void setChecked(boolean checked)
     {
-        return entryCheckBox.isChecked();
+        entryCheckBox.setChecked(checked);
     }
 }

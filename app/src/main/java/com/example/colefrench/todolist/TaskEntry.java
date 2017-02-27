@@ -22,6 +22,14 @@ public class TaskEntry extends ToDoEntry {
         combinedDueDate = setCombinedDueDate();
     }
 
+    public TaskEntry(TaskEntry original)
+    {
+        this(original.getEntryHeaderText(),
+                original.getDueYear(),
+                original.getDueMonth(),
+                original.getDueDay());
+    }
+
     // combined due date is ordered YYYYMMDD
     private int setCombinedDueDate()
     {
@@ -47,7 +55,16 @@ public class TaskEntry extends ToDoEntry {
      */
     public String toString()
     {
-        return (this.getEntryHeaderText() + combinedDueDate);
+        String c;
+        if (this.isChecked())
+        {
+            c = IS_CHECKED_STRING;
+        }
+        else
+        {
+            c = IS_NOT_CHECKED_STRING;
+        }
+        return (this.getEntryHeaderText() + "|*|" + combinedDueDate + "|*|" + c);
     }
 
     private boolean isSingleDigit(int n)

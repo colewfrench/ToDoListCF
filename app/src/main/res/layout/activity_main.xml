@@ -87,8 +87,9 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:id="@+id/buttonLayout"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:id="@+id/bugTestButtonLayout">
 
         <Button
             android:text="Load"
@@ -103,9 +104,23 @@
             android:layout_height="wrap_content"
             android:id="@+id/saveButton"
             android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:id="@+id/buttonLayout"
+        android:layout_height="wrap_content">
 
         <Button
-            android:text="Add"
+            android:text="Clear Checked"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/clearCheckedButton"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="Add New Entry"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/addEntryButton"

@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 
 public class TaskEntryManager implements EntryManager, Constants {
 
-    private static final int MAX_NUM_ENTRIES = 20;
+    private static final int MAX_NUM_ENTRIES = 6;
     private static final int DUE_DATE_DEFAULT_VALUE = -1;
 
     private static final String TASKENTRIES_FILE_NAME = "taskentries.txt";
@@ -76,32 +76,40 @@ public class TaskEntryManager implements EntryManager, Constants {
     // Deleting entries from the array
     // --->
 
-    public void deleteCheckedTaskEntry(TaskView deleteView)
+    public void deleteCheckedEntries()
     {
-        TaskEntry deleteEntry = deleteView.getTaskEntry();
+        int nullEntryIndex = getNextAvailableIndex(taskEntries);
+        if (nullEntryIndex == 0) return;
+        if (nullEntryIndex == -1) nullEntryIndex = MAX_NUM_ENTRIES;
 
-        int deleteIndex = getDeleteIndex(deleteEntry);
-
-        if (deleteIndex == -1) return;
-
-        taskEntries[deleteIndex] = null;
-
-        for (int i = deleteIndex + 1; i < MAX_NUM_ENTRIES; i++)
+        for (int i = 0; i < nullEntryIndex; i++)
         {
-            taskEntries[i - 1] = taskEntries[i];
+            if (taskEntries[i].isChecked())
+            {
+                taskEntries[i] = null;
+            }
         }
+
+        compactEntries(nullEntryIndex);
     }
 
-    private int getDeleteIndex(TaskEntry deleteEntry)
+    private void compactEntries(int lastNullEntryIndex)
     {
-        TaskEntry[] currentEntries = getCurrentEntries(taskEntries);
-
-        for (int i = 0; i < currentEntries.length; i++)
+        for (int i = 0; i < lastNullEntryIndex; i++)
         {
-            if (currentEntries[i] == deleteEntry) return i;
+            if (taskEntries[i] == null)
+            {
+                for (int j = i + 1; j < lastNullEntryIndex; j++)
+                {
+                    if (taskEntries[j] != null)
+                    {
+                        taskEntries[i] = new TaskEntry(taskEntries[j]);
+                        taskEntries[j] = null;
+                        break;
+                    }
+                }
+            }
         }
-
-        return -1; // deleteEntry not found (Shouldn't happen)
     }
 
     // <---
@@ -115,6 +123,8 @@ public class TaskEntryManager implements EntryManager, Constants {
     public TaskEntry[] getCurrentSortedEntries()
     {
         TaskEntry[] currentEntries = getCurrentEntries(taskEntries);
+
+        if (currentEntries == null) return null;
 
         // only currentEntries is properly ordered, the master copy taskEntries
         // is still unordered
@@ -191,15 +201,20 @@ public class TaskEntryManager implements EntryManager, Constants {
 
     private void writeEntriesToOutputStream(String filename, ToDoEntry[] entries)
     {
-        if (entries.length == 0) return;
-
         FileOutputStream outputStream;
 
         try {
             outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
 
-            for (ToDoEntry entry : entries) {
-                outputStream.write((entry.toString() + "\n").getBytes());
+            if (entries == null)
+            {
+                outputStream.write("".getBytes());
+            }
+            else
+            {
+                for (ToDoEntry entry : entries) {
+                    outputStream.write((entry.toString() + "\n").getBytes());
+                }
             }
 
             outputStream.close();
@@ -259,12 +274,23 @@ public class TaskEntryManager implements EntryManager, Constants {
 
     private TaskEntry convertEntryStringToEntry(String fileLine)
     {
-        int combinedDueDate = Integer.parseInt(fileLine.substring(fileLine.length() - 8));
+        String[] entryData = fileLine.split("\\|\\*\\|");
+        int combinedDueDate = Integer.parseInt(entryData[1]);
         int year = (combinedDueDate / 10000);
         int month = ((combinedDueDate % 10000) / 100);
         int day = (combinedDueDate % 100);
-        String headerText = fileLine.substring(0, fileLine.length() - 8);
+        String headerText = entryData[0];
         TaskEntry savedEntry = new TaskEntry(headerText, year, month, day);
+
+        if (entryData[2].equals("y"))
+        {
+            // entry should appear checked
+            savedEntry.setChecked(true);
+        }
+        else
+        {
+            savedEntry.setChecked(false);
+        }
 
         return savedEntry;
     }
@@ -279,7 +305,7 @@ public class TaskEntryManager implements EntryManager, Constants {
     {
         int currentArraySize = getNextAvailableIndex(original);
 
-        if (currentArraySize == 0) return original;
+        if (currentArraySize == 0) return null;
         if (currentArraySize == -1) currentArraySize = MAX_NUM_ENTRIES; // array is full
 
         TaskEntry[] allCurrentTaskEntries = new TaskEntry[currentArraySize];
@@ -338,9 +364,14 @@ public class TaskEntryManager implements EntryManager, Constants {
     {
         for (int i = 0; i < taskEntries.length; i++)
         {
-            if (taskEntries[i] == null) break;
-
-            Log.d("Index " + i, taskEntries[i].getCombinedDueDate() + "");
+            if (taskEntries[i] == null)
+            {
+                Log.d("Index " + i, "null");
+            }
+            else
+            {
+                Log.d("Index " + i, taskEntries[i].getCombinedDueDate() + "");
+            }
         }
 
         Log.d("","\n");

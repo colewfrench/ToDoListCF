@@ -16,17 +16,16 @@ import java.util.Calendar;
 
 public class MainActivity extends Activity implements Constants {
 
-    private static final int MAX_NUM_ENTRIES = 20;
-    private static final int DUE_DATE_DEFAULT_VALUE = -1;
-
-    private static final String TASKVIEW_FILE_NAME = "taskviews.txt";
-
     private TaskEntryManager taskManager;
 
     private LinearLayout entryListLayout;
     private Button addNewEntryButton;
+    private Button clearCheckedEntriesButton;
+
+    // Debugging buttons
     private Button saveButton;
     private Button loadButton;
+
     private TextView currentDateHeader;
 
     @Override
@@ -42,11 +41,15 @@ public class MainActivity extends Activity implements Constants {
         // get references to the elements on the screen
         entryListLayout = (LinearLayout)findViewById(R.id.entryListLayout);
         addNewEntryButton = (Button)findViewById(R.id.addEntryButton);
-        saveButton = (Button)findViewById(R.id.saveButton);
-        loadButton = (Button)findViewById(R.id.loadButton);
+        clearCheckedEntriesButton = (Button)findViewById(R.id.clearCheckedButton);
 
         // set listeners for the buttons on the screen
         addNewEntryButton.setOnClickListener(new ButtonListener());
+        clearCheckedEntriesButton.setOnClickListener(new ButtonListener());
+
+        // debugging buttons
+        saveButton = (Button)findViewById(R.id.saveButton);
+        loadButton = (Button)findViewById(R.id.loadButton);
         saveButton.setOnClickListener(new ButtonListener());
         loadButton.setOnClickListener(new ButtonListener());
 
@@ -66,14 +69,14 @@ public class MainActivity extends Activity implements Constants {
     @Override
     protected void onPause()
     {
-        taskManager.saveEntries();
+        // taskManager.saveEntries();
         super.onPause();
     }
 
     @Override
     protected void onResume()
     {
-        taskManager.loadEntriesFromFile();
+        // taskManager.loadEntriesFromFile();
         setCurrentDateHeader();
         super.onResume();
     }
@@ -102,22 +105,6 @@ public class MainActivity extends Activity implements Constants {
         }
     }
 
-    // TODO remove this when base functionality is complete
-    public class EntryCheckBoxListener implements CompoundButton.OnCheckedChangeListener {
-
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked)
-            {
-                TaskView finishedView = (TaskView)buttonView.getParent();
-                // deleteCheckedEntryInView(finishedView);
-                entryListLayout.removeView(finishedView);
-
-                // sortEntries();
-            }
-        }
-    }
-
     public class ButtonListener implements View.OnClickListener {
 
         @Override
@@ -126,6 +113,12 @@ public class MainActivity extends Activity implements Constants {
             {
                 Intent intent = new Intent(getApplicationContext(), NewEntryActivity.class);
                 startActivityForResult(intent, GET_NEW_ENTRY);
+            }
+
+            if (v == clearCheckedEntriesButton)
+            {
+                taskManager.deleteCheckedEntries();
+                updateEntryDisplay();
             }
 
             if (v == saveButton)
@@ -141,16 +134,29 @@ public class MainActivity extends Activity implements Constants {
         }
     }
 
+    public class CheckBoxListener implements CompoundButton.OnCheckedChangeListener {
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            TaskView checkedView = (TaskView)buttonView.getParent();
+            TaskEntry checkedEntry = checkedView.getTaskEntry();
+            checkedEntry.setChecked(isChecked);
+        }
+    }
+
     private void updateEntryDisplay()
     {
         entryListLayout.removeAllViews();
 
         TaskEntry[] currentEntries = taskManager.getCurrentSortedEntries();
 
-        for (TaskEntry e : currentEntries)
+        if (currentEntries != null)
         {
-            TaskView newTaskView = new TaskView(this, e, new EntryCheckBoxListener());
-            entryListLayout.addView(newTaskView);
+            for (TaskEntry e : currentEntries) {
+                TaskView newTaskView = new TaskView(this, e, new CheckBoxListener());
+                newTaskView.setChecked(e.isChecked());
+                entryListLayout.addView(newTaskView);
+            }
         }
     }
 
