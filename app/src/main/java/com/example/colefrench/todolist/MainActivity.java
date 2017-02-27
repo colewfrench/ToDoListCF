@@ -1,10 +1,8 @@
 package com.example.colefrench.todolist;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -21,10 +19,6 @@ public class MainActivity extends Activity implements Constants {
     private LinearLayout entryListLayout;
     private Button addNewEntryButton;
     private Button clearCheckedEntriesButton;
-
-    // Debugging buttons
-    private Button saveButton;
-    private Button loadButton;
 
     private TextView currentDateHeader;
 
@@ -47,36 +41,21 @@ public class MainActivity extends Activity implements Constants {
         addNewEntryButton.setOnClickListener(new ButtonListener());
         clearCheckedEntriesButton.setOnClickListener(new ButtonListener());
 
-        // debugging buttons
-        saveButton = (Button)findViewById(R.id.saveButton);
-        loadButton = (Button)findViewById(R.id.loadButton);
-        saveButton.setOnClickListener(new ButtonListener());
-        loadButton.setOnClickListener(new ButtonListener());
-
         // instantiate the task manager that stores and manipulates the Task Entries
         taskManager = new TaskEntryManager(this);
-
-        // add sample entry
-        Intent intent = new Intent();
-        intent.putExtra(NEW_ENTRY_HEADER_TEXT, "Sample Header Text");
-        intent.putExtra(NEW_ENTRY_DUE_YEAR, 2017);
-        intent.putExtra(NEW_ENTRY_DUE_MONTH, 10);
-        intent.putExtra(NEW_ENTRY_DUE_DAY, 13);
-
-        taskManager.addNewTaskEntry(intent);
     }
 
     @Override
     protected void onPause()
     {
-        // taskManager.saveEntries();
+        taskManager.saveEntries();
         super.onPause();
     }
 
     @Override
     protected void onResume()
     {
-        // taskManager.loadEntriesFromFile();
+        taskManager.loadEntriesFromFile();
         setCurrentDateHeader();
         super.onResume();
     }
@@ -118,17 +97,6 @@ public class MainActivity extends Activity implements Constants {
             if (v == clearCheckedEntriesButton)
             {
                 taskManager.deleteCheckedEntries();
-                updateEntryDisplay();
-            }
-
-            if (v == saveButton)
-            {
-                taskManager.saveEntries();
-            }
-
-            if (v == loadButton)
-            {
-                taskManager.loadEntriesFromFile();
                 updateEntryDisplay();
             }
         }

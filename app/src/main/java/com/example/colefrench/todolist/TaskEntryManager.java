@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 
 public class TaskEntryManager implements EntryManager, Constants {
 
-    private static final int MAX_NUM_ENTRIES = 6;
+    private static final int MAX_NUM_ENTRIES = 20;
     private static final int DUE_DATE_DEFAULT_VALUE = -1;
 
     private static final String TASKENTRIES_FILE_NAME = "taskentries.txt";
@@ -192,11 +192,6 @@ public class TaskEntryManager implements EntryManager, Constants {
         TaskEntry[] currentEntries = getCurrentSortedEntries();
 
         writeEntriesToOutputStream(TASKENTRIES_FILE_NAME, currentEntries);
-
-        // TODO remove this when finished debugging
-        printDirFiles();
-
-        printEntryDates();
     }
 
     private void writeEntriesToOutputStream(String filename, ToDoEntry[] entries)
@@ -220,7 +215,7 @@ public class TaskEntryManager implements EntryManager, Constants {
             outputStream.close();
         } catch (Exception e)
         {
-            Log.d("Error", "could not write file");
+            // could not write file
         }
     }
 
@@ -254,19 +249,18 @@ public class TaskEntryManager implements EntryManager, Constants {
 
             while ((fileEntryLine = bufferedReader.readLine()) != null)
             {
-                Log.d("Raw Line Text", fileEntryLine);
                 TaskEntry entry = convertEntryStringToEntry(fileEntryLine);
                 addNewTaskEntry(entry);
             }
         } catch (FileNotFoundException e)
         {
-            Log.d("Error", "file not found");
+
         } catch (UnsupportedEncodingException e)
         {
-            Log.d("Error", "unsupported encoding");
+
         } catch (IOException e)
         {
-            Log.d("Error", "io error");
+
         }
 
         return taskEntries;
