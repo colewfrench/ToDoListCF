@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.example.colefrench.todolist.MainActivity"
     android:orientation="vertical"
-    android:background="@color/TaskViewBackgroundColor">
+    android:background="@color/TaskViewBackgroundColorLight">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="4"
-        android:background="@color/TaskViewHeaderColor"
+        android:background="@color/TaskViewHeaderColorLight"
         android:id="@+id/TaskViewHeader">
 
         <LinearLayout
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/todayIsTextView"
-                android:textColor="@color/entryTextColor"
+                android:textColor="@color/TaskViewHeaderTextColorLight"
                 android:textSize="@dimen/task_view_header_todayIs_label_text_size"
                 android:layout_marginLeft="20px"
                 android:layout_marginTop="15px" />
@@ -37,7 +37,7 @@
                 android:id="@+id/currentDateTextView"
                 android:layout_weight="1"
                 android:textSize="@dimen/task_view_header_date_text_size"
-                android:textColor="@color/entryTextColor"
+                android:textColor="@color/TaskViewHeaderTextColorLight"
                 android:layout_marginLeft="20px"
                 android:gravity="center_vertical" />
         </LinearLayout>
@@ -88,21 +88,28 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:id="@+id/buttonLayout"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/TaskViewHeaderColorLight">
 
         <Button
             android:text="Clear Checked"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/clearCheckedButton"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/button_border"
+            android:textColor="@color/ButtonTextColor"
+            android:layout_margin="10px" />
 
         <Button
             android:text="Add New Entry"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/addEntryButton"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/button_border"
+            android:textColor="@color/ButtonTextColor"
+            android:layout_margin="10px" />
 
     </LinearLayout>
 

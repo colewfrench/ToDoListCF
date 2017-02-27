@@ -4,11 +4,26 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="TaskViewBackgroundColor">#2E4272</color>
-    <color name="TaskViewHeaderColor">#020d2a</color>
-    <color name="entryTextColor">#a6b1cc</color>
+    <!-- dark theme -->
+    <color name="TaskViewBackgroundColorDark">#2E4272</color>
+    <color name="TaskViewHeaderColorDark">#020d2a</color>
+    <color name="EntryTextColorDark">#a6b1cc</color>
+    <color name="EntryOutlineStrokeColorDark">#0D1F4E</color>
+    <color name="EntryOutlineFillColorDark">#617096</color>
 
-    <color name="EntryOutlineStrokeColor">#0D1F4E</color>
-    <color name="EntryOutlineFillColor">#617096</color>
+    <color name="ButtonOutlineStrokeColorDark">#000000</color>
+    <color name="ButtonOutlineFillColorDark">#000000</color>
+
+    <!-- light theme -->
+    <color name="TaskViewBackgroundColorLight">#06D8FF</color>
+    <color name="TaskViewHeaderColorLight">#005767</color>
+    <color name="TaskViewHeaderTextColorLight">#FFA6F1FF</color>
+    <color name="EntryTextColorLight">#FF007085</color>
+    <color name="EntryOutlineStrokeColorLight">#007085</color>
+    <color name="EntryOutlineFillColorLight">#73E9FF</color>
+
+    <color name="ButtonOutlineStrokeColorLight">#FFA6F1FF</color>
+    <color name="ButtonOutlineFillColorLight">#005767</color>
+    <color name="ButtonTextColor">#A6F1FF</color>
 
 </resources>
