@@ -5,7 +5,5 @@ TaskEntry class elements are all properly placed and set, background is good as 
 Nearly finished with minimum viable functionality
 
 TODO:
-- COMPLETE MOVING FUNCTIONALITY INTO SEPARATE CLASS AND TEST TO MAKE SURE STILL WORKS
-- need app to save on quit or pause, and load on startup or on resume
 - change main layout to have all necessary inputs
 - clean up code for version 1.0
