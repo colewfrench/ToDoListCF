@@ -45,7 +45,7 @@ public class MainActivity extends Activity implements Constants {
         // instantiate the task manager that stores and manipulates the Task Entries
         taskManager = new TaskEntryManager(this);
 
-        Log.d("created","done");
+        // Log.d("created","done");
     }
 
     @Override
@@ -62,7 +62,7 @@ public class MainActivity extends Activity implements Constants {
         taskManager.loadEntriesFromFile();
         setCurrentDateHeader();
         updateEntryDisplay();
-        Log.d("onREsume","here");
+        // Log.d("onResume","loaded");
     }
 
     /*
@@ -78,8 +78,8 @@ public class MainActivity extends Activity implements Constants {
                 if (resultCode == RESULT_OK)
                 {
                     taskManager.addNewTaskEntry(data);
-                    Log.d("activityResult","returned");
-                    //updateEntryDisplay();
+                    taskManager.saveEntries();
+                    //Log.d("activityResult","returned");
                 }
                 if (resultCode == RESULT_CANCELED)
                 {

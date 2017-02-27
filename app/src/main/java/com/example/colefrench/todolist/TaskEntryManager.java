@@ -186,7 +186,6 @@ public class TaskEntryManager implements EntryManager, Constants {
     // Saving the entries to device's internal storage
     // --->
 
-    // TODO saveEntries is not properly writing to the file
     // TODO the sorting method needs cleaning up
     @Override
     public void saveEntries() {
@@ -194,8 +193,6 @@ public class TaskEntryManager implements EntryManager, Constants {
         TaskEntry[] currentEntries = getCurrentSortedEntries();
 
         writeEntriesToOutputStream(TASKENTRIES_FILE_NAME, currentEntries);
-
-        printEntryDates();
     }
 
     private void writeEntriesToOutputStream(String filename, ToDoEntry[] entries)

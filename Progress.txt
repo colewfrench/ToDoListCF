@@ -7,3 +7,6 @@ Nearly finished with minimum viable functionality
 TODO:
 - change main layout to have all necessary inputs
 - clean up code for version 1.0
+
+Note:
+- Order of screen return: activity gets result -> onResume executes
