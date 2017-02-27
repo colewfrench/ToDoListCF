@@ -21,8 +21,6 @@ public class MainActivity extends Activity implements Constants {
     private Button addNewEntryButton;
     private Button clearCheckedEntriesButton;
 
-    private int testInt;
-
     private TextView currentDateHeader;
 
     @Override
