@@ -42,6 +42,7 @@ public class TaskView extends ToDoView {
         dueDateTextView.setLayoutParams(dueDateTextViewParams);
 
         dueDateTextView.setTextSize(getResources().getDimension(R.dimen.text_view_text_size));
+        dueDateTextView.setTextColor(super.ENTRY_TEXT_COLOR);
         dueDateTextView.setGravity(Gravity.CENTER_VERTICAL);
         dueDateTextView.setText(newEntry.getDueMonth() + "/" + newEntry.getDueDay() + "/" + newEntry.getDueYear());
 
