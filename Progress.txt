@@ -4,9 +4,30 @@ TaskEntry class elements are all properly placed and set, background is good as 
 2/19/2017
 Nearly finished with minimum viable functionality
 
+2/27/2017
+Base functionality achieved!
+- loads and saves entries to internal storage
+- sorts entries by closest due date
+- add and clear entries
+
 TODO:
 - change main layout to have all necessary inputs
+- the saving and sorting code needs to be better written; can be simplified
 - clean up code for version 1.0
+
+Bonus Features:
+- Project entries functionality and sub-project entries
+- Daily/Weekly list options for entries that should reappear every day/week/etc
+- edit entry functionality
+- make a widget for the home screen to display nearest due entries
+- create, save, and load pre-made lists
+
+Aesthetics:
+- animate clearing checked entries
+- make the add new entry screen nicer
+- the newEntry screen appears as a dialog box instead of a new screen
+- add color theme selection functionality
+- add click indicator for buttons
 
 Note:
 - Order of screen return: activity gets result -> onResume executes
