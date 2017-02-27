@@ -3,6 +3,7 @@ package com.example.colefrench.todolist;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -43,13 +44,15 @@ public class MainActivity extends Activity implements Constants {
 
         // instantiate the task manager that stores and manipulates the Task Entries
         taskManager = new TaskEntryManager(this);
+
+        Log.d("created","done");
     }
 
     @Override
     protected void onPause()
     {
-        taskManager.saveEntries();
         super.onPause();
+        taskManager.saveEntries();
     }
 
     @Override
@@ -59,6 +62,7 @@ public class MainActivity extends Activity implements Constants {
         taskManager.loadEntriesFromFile();
         setCurrentDateHeader();
         updateEntryDisplay();
+        Log.d("onREsume","here");
     }
 
     /*
@@ -74,7 +78,8 @@ public class MainActivity extends Activity implements Constants {
                 if (resultCode == RESULT_OK)
                 {
                     taskManager.addNewTaskEntry(data);
-                    updateEntryDisplay();
+                    Log.d("activityResult","returned");
+                    //updateEntryDisplay();
                 }
                 if (resultCode == RESULT_CANCELED)
                 {
