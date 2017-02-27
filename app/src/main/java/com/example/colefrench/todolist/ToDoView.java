@@ -17,7 +17,7 @@ public abstract class ToDoView extends LinearLayout {
 
     private static final int CHECK_BOX_LEFT_MARGIN = 15; // 15 px
 
-    private static final int ENTRY_TEXT_COLOR = 0xFFA6B1CC;
+    protected int ENTRY_TEXT_COLOR;
 
     private Context context;
 
@@ -28,6 +28,8 @@ public abstract class ToDoView extends LinearLayout {
     public ToDoView(Context context, String initEntryText, CompoundButton.OnCheckedChangeListener l)
     {
         super(context);
+
+        ENTRY_TEXT_COLOR = R.color.EntryTextColorLight;
 
         this.context = context;
 

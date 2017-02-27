@@ -1,7 +1,6 @@
 package com.example.colefrench.todolist;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,10 +20,6 @@ public class MainActivity extends Activity implements Constants {
     private LinearLayout entryListLayout;
     private Button addNewEntryButton;
     private Button clearCheckedEntriesButton;
-
-    // Debugging buttons
-    private Button saveButton;
-    private Button loadButton;
 
     private TextView currentDateHeader;
 
@@ -47,38 +42,27 @@ public class MainActivity extends Activity implements Constants {
         addNewEntryButton.setOnClickListener(new ButtonListener());
         clearCheckedEntriesButton.setOnClickListener(new ButtonListener());
 
-        // debugging buttons
-        saveButton = (Button)findViewById(R.id.saveButton);
-        loadButton = (Button)findViewById(R.id.loadButton);
-        saveButton.setOnClickListener(new ButtonListener());
-        loadButton.setOnClickListener(new ButtonListener());
-
         // instantiate the task manager that stores and manipulates the Task Entries
         taskManager = new TaskEntryManager(this);
 
-        // add sample entry
-        Intent intent = new Intent();
-        intent.putExtra(NEW_ENTRY_HEADER_TEXT, "Sample Header Text");
-        intent.putExtra(NEW_ENTRY_DUE_YEAR, 2017);
-        intent.putExtra(NEW_ENTRY_DUE_MONTH, 10);
-        intent.putExtra(NEW_ENTRY_DUE_DAY, 13);
-
-        taskManager.addNewTaskEntry(intent);
+        // Log.d("created","done");
     }
 
     @Override
     protected void onPause()
     {
-        // taskManager.saveEntries();
         super.onPause();
+        taskManager.saveEntries();
     }
 
     @Override
     protected void onResume()
     {
-        // taskManager.loadEntriesFromFile();
-        setCurrentDateHeader();
         super.onResume();
+        taskManager.loadEntriesFromFile();
+        setCurrentDateHeader();
+        updateEntryDisplay();
+        // Log.d("onResume","loaded");
     }
 
     /*
@@ -94,7 +78,8 @@ public class MainActivity extends Activity implements Constants {
                 if (resultCode == RESULT_OK)
                 {
                     taskManager.addNewTaskEntry(data);
-                    updateEntryDisplay();
+                    taskManager.saveEntries();
+                    //Log.d("activityResult","returned");
                 }
                 if (resultCode == RESULT_CANCELED)
                 {
@@ -118,17 +103,6 @@ public class MainActivity extends Activity implements Constants {
             if (v == clearCheckedEntriesButton)
             {
                 taskManager.deleteCheckedEntries();
-                updateEntryDisplay();
-            }
-
-            if (v == saveButton)
-            {
-                taskManager.saveEntries();
-            }
-
-            if (v == loadButton)
-            {
-                taskManager.loadEntriesFromFile();
                 updateEntryDisplay();
             }
         }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.colefrench.todolist.NewEntryActivity"
     android:orientation="vertical"
-    android:background="@color/TaskViewBackgroundColor">
+    android:background="@color/TaskViewBackgroundColorLight">
 
     <TextView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:ems="10"
             android:id="@+id/newEntryEditText"
             android:hint="Your entry here"
-            android:textColor="@color/entryTextColor" />
+            android:textColor="@color/EntryTextColorLight" />
 
         <DatePicker
             android:layout_width="match_parent"
