@@ -55,9 +55,10 @@ public class MainActivity extends Activity implements Constants {
     @Override
     protected void onResume()
     {
+        super.onResume();
         taskManager.loadEntriesFromFile();
         setCurrentDateHeader();
-        super.onResume();
+        updateEntryDisplay();
     }
 
     /*
