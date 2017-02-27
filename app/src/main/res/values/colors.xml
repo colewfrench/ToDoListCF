@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="TaskViewBackgroundColor">#2E4272</color>
+    <color name="TaskViewHeaderColor">#020d2a</color>
+    <color name="entryTextColor">#a6b1cc</color>
+
+    <color name="EntryOutlineStrokeColor">#0D1F4E</color>
+    <color name="EntryOutlineFillColor">#617096</color>
+
+</resources>
